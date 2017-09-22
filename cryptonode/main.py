@@ -24,12 +24,14 @@ def cryptonode_main(args):
     opts = parse_args(args)
     bindir = opts.DIR / 'bin'
     for profdir in (opts.DIR / 'profiles').iterdir():
-        for binfile in (profdir / 'bin').iterdir():
-            if binfile.is_file() and binfile.stat().st_mode & 0100:
-                wrappername = '{}.{}'.format(profdir.name, binfile.name)
-                wrapperdest = bindir / wrappername
-                print('Creating {}'.format(wrapperdest))
-                wrapperdest.symlink_to(executable)
+        profbindir = profdir / 'bin'
+        if profbindir.is_dir():
+            for binfile in profbindir.iterdir():
+                if binfile.is_file() and binfile.stat().st_mode & 0100:
+                    wrappername = '{}.{}'.format(profdir.name, binfile.name)
+                    wrapperdest = bindir / wrappername
+                    print('Creating {}'.format(wrapperdest))
+                    wrapperdest.symlink_to(executable)
 
 
 def wrapper_main(args):

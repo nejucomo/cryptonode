@@ -13,8 +13,10 @@ setup(
     author_email='nejucomo+dev@gmail.com',
     license='GPLv3',
     url='https://github.com/nejucomo/{}'.format(PACKAGE),
-
     packages=find_packages(),
+    install_requires=[
+        'pathlib2 >= 2.3.0',
+    ],
 
     entry_points={
         'console_scripts': [
