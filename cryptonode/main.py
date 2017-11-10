@@ -41,7 +41,6 @@ def wrapper_main(args):
     datadir = profdir / 'datadir'
     targetbin = profdir / 'bin' / binname
     fullargs = [str(targetbin), '-datadir=' + str(datadir)] + args
-    print('cryptoprofile running: {!r}'.format(fullargs))
     os.execvp(fullargs[0], fullargs)
 
 
