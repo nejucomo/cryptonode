@@ -41,7 +41,10 @@ def wrapper_main(args):
     datadir = profdir / 'datadir'
     targetbin = profdir / 'bin' / binname
     fullargs = [str(targetbin), '-datadir=' + str(datadir)] + args
-    os.execvp(fullargs[0], fullargs)
+    try:
+        os.execvp(fullargs[0], fullargs)
+    except os.error as e:
+        raise SystemExit('Failed to execute {!r}...\n{}'.format(fullargs, e))
 
 
 def parse_args(args):
