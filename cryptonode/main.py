@@ -37,7 +37,7 @@ def cryptonode_main(args):
                     wrapperdest = bindir / wrappername
                     print('Creating {}'.format(wrapperdest))
                     wrapperdest.symlink_to(executable)
-                    removed.remove(str(wrapperdest))
+                    removed.discard(str(wrapperdest))
 
     for r in removed:
         print('Removed {}'.format(r))
