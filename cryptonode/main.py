@@ -23,6 +23,11 @@ def main(args=sys.argv[1:]):
 def cryptonode_main(args):
     opts = parse_args(args)
     bindir = opts.DIR / 'bin'
+    removed = set()
+    for oldbin in bindir.iterdir():
+        oldbin.unlink()
+        removed.add(str(oldbin))
+
     for profdir in (opts.DIR / 'profiles').iterdir():
         profbindir = profdir / 'bin'
         if profbindir.is_dir():
@@ -32,6 +37,10 @@ def cryptonode_main(args):
                     wrapperdest = bindir / wrappername
                     print('Creating {}'.format(wrapperdest))
                     wrapperdest.symlink_to(executable)
+                    removed.remove(str(wrapperdest))
+
+    for r in removed:
+        print('Removed {}'.format(r))
 
 
 def wrapper_main(args):
